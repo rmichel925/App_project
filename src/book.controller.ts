@@ -8,8 +8,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import type { Book } from './Book';
 import { BookService } from './book.service';
+import { Book } from './Book'; // Importation du modèle Book
 
 @Controller('/books')
 export class BookController {
@@ -18,7 +18,7 @@ export class BookController {
   @Post()
   createBook(@Body() book: Book): Book {
     this.bookService.addBook(book);
-    return this.bookService.getBook(book.isbn.toString());
+    return this.bookService.getBook(book.objectid); // Utilisation de objectid
   }
 
   @Get()
@@ -29,14 +29,14 @@ export class BookController {
     return this.bookService.getAllBooks();
   }
 
-  @Get(':isbn')
-  getBook(@Param('isbn') isbn: string): Book {
-    return this.bookService.getBook(isbn);
+  @Get(':objectid')
+  getBook(@Param('objectid') objectid: number): Book {
+    return this.bookService.getBook(objectid); // Utilisation de objectid
   }
 
-  @Delete(':isbn')
-  deleteBook(@Param('isbn') isbn: string): void {
-    this.bookService.remove(isbn);
+  @Delete(':objectid')
+  deleteBook(@Param('objectid') objectid: number): void {
+    this.bookService.remove(objectid); // Utilisation de objectid
   }
 
   @Post('search')
