@@ -1,5 +1,5 @@
 export interface Book {
-  isbn: string; // Utilisation de string pour l'ID dans votre app (ça peut correspondre à un string ou un number selon le cas)
+  isbn: string;
   title: string;
   author: string;
   date: string;
