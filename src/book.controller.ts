@@ -18,7 +18,7 @@ export class BookController {
   @Post()
   createBook(@Body() book: Book): Book {
     this.bookService.addBook(book);
-    return this.bookService.getBook(book.objectid); // Utilisation de objectid
+    return this.bookService.getBook(book.isbn); // Utilisation de ISBN comme clé
   }
 
   @Get()
@@ -29,14 +29,14 @@ export class BookController {
     return this.bookService.getAllBooks();
   }
 
-  @Get(':objectid')
-  getBook(@Param('objectid') objectid: number): Book {
-    return this.bookService.getBook(objectid); // Utilisation de objectid
+  @Get(':isbn')
+  getBook(@Param('isbn') isbn: string): Book { // Paramètre ISBN sous forme de string
+    return this.bookService.getBook(isbn); // Passer ISBN comme string
   }
 
-  @Delete(':objectid')
-  deleteBook(@Param('objectid') objectid: number): void {
-    this.bookService.remove(objectid); // Utilisation de objectid
+  @Delete(':isbn')
+  deleteBook(@Param('isbn') isbn: string): void { // Paramètre ISBN sous forme de string
+    this.bookService.remove(isbn);
   }
 
   @Post('search')
