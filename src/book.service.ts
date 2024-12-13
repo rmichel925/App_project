@@ -5,6 +5,7 @@ import {AxiosResponse} from "axios";
 import { Book } from './Book';  // Interface Book pour le service
 import { APIBook } from './APIBook'; // Interface APIBook pour les données de l'API
 import { GlobalBookAPI } from './GlobalBookAPI';
+import { EmptyError } from 'rxjs';
 
 @Injectable()
 export class BookService implements OnModuleInit {
@@ -103,5 +104,16 @@ export class BookService implements OnModuleInit {
           book.title.includes(term) || book.author.includes(term),
       )
       .sort((a, b) => a.title.localeCompare(b.title));
+  }
+
+  setFavoris(isbn: string, favoris: boolean): Book {
+    const elem = this.getBook(isbn);
+    elem.favoris = favoris;
+    this.storage.set(isbn, elem);
+    return elem
+  }
+
+  updateBook(Book: Book) {
+    return this.storage.set(Book.isbn, Book);
   }
 }
