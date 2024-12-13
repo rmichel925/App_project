@@ -12,14 +12,14 @@ export class BookService implements OnModuleInit {
 
   async onModuleInit() {
     // Charger les livres depuis le fichier local et en ligne
-    Promise.all([this.loadBooksFromFile(), this.readBooksOnline()]).then(() => {
+    Promise.all([/*this.loadBooksFromFile(), */this.readBooksOnline()]).then(() => {
       console.log('Initialisation terminée.');
       console.log(this.getAllBooks());
     });
   }
 
   // Charger les livres depuis un fichier local
-  async loadBooksFromFile(): Promise<APIBook[]> {
+ /* async loadBooksFromFile(): Promise<APIBook[]> {
     const data = await readFile('../books.json', 'utf-8');
     const apiBooks: GlobalBookAPI[] = JSON.parse(data);
 
@@ -36,7 +36,7 @@ export class BookService implements OnModuleInit {
     });
     console.log(this.getAllBooks());
     return apiBooks["results"];
-  }
+  }*/
 
   // Charger les livres depuis une API externe
   async readBooksOnline(): Promise<Book[]> {
