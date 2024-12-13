@@ -1,10 +1,10 @@
-
 export interface Book {
-  objectid: number;
-  nom_de_l_oeuvre: string;
-  nom_de_l_artiste: string;
-  date_de_creation: string;
-  coord: string[];
-  emplacement: String;
+  isbn: string; // Utilisation de string pour l'ID dans votre app (ça peut correspondre à un string ou un number selon le cas)
+  title: string;
+  author: string;
+  date: string;
+  coordonnees: string[];
+  emplacement: string;
   favoris: boolean;
 }
+
