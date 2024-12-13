@@ -1,0 +1,39 @@
+{
+    "total_count":79,
+    "results":[
+    {
+    "objectid":2,
+    "nom_de_l_oeuvre":"Mémorial des Cendres de Napoléon",
+    "nom_de_l_artiste":"Raymondo Puccinelli",
+    "date_d_implantation":"janvier 1, 1980",
+    "date_de_creation":"janvier 1, 1980",
+    "date_de_depose":null,
+    "emplacement":null,
+    "structure":null,
+    "hauteur":null,
+    "x":645281.483099997,
+    "y":6865714.5392,
+    "coord":{
+    "lon":2.253772545736423,
+    "lat":48.88911619918821
+    }
+    },
+    {
+    "objectid":4,
+    "nom_de_l_oeuvre":"La Défonce",
+    "nom_de_l_artiste":"François Morellet",
+    "date_d_implantation":"janvier 1, 1990",
+    "date_de_creation":"janvier 1, 1990",
+    "date_de_depose":null,
+    "emplacement":"ESPACE PUBLIC",
+    "structure":null,
+    "hauteur":null,
+    "x":644534.8051000014,
+    "y":6865791.927700002,
+    "coord":{
+    "lon":2.2435801832541884,
+    "lat":48.88974822764745
+    }
+    }
+]
+}

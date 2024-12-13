@@ -1,52 +1,71 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { readFile } from 'node:fs/promises';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import {AxiosResponse} from "axios";
 import { Book } from './Book';  // Interface Book pour le service
 import { APIBook } from './APIBook'; // Interface APIBook pour les données de l'API
+import { GlobalBookAPI } from './GlobalBookAPI';
 
 @Injectable()
 export class BookService implements OnModuleInit {
-  private readonly logger = new Logger(BookService.name);
-  private readonly storage: Map<string, Book> = new Map(); // Utilisation de ISBN comme clé
-
-  constructor(private readonly httpService: HttpService) {}
+  private readonly storage: Map<string, Book> = new Map();
 
   async onModuleInit() {
-    this.logger.log('Loading books from file and API');
-    await Promise.all([this.loadBooksFromFile(), this.loadBooksFromApi()]);
-    this.logger.log(`${this.storage.size} books loaded`);
+    // Charger les livres depuis le fichier local et en ligne
+    Promise.all([this.loadBooksFromFile(), this.readBooksOnline()]).then(() => {
+      console.log('Initialisation terminée.');
+      console.log(this.getAllBooks());
+    });
   }
 
-  private async loadBooksFromFile() {
-    // Charger les livres depuis le fichier local (dataset.json) ou une autre source
-    // Assurez-vous que le fichier ou la source existe
-    // Exemple : const data = await readFile('src/dataset.json', 'utf8');
-    const data = []; // Remplacer par le chargement réel
-    const books: Book[] = JSON.parse(data.toString());  // Exemple fictif de données
-    books.forEach((book) => this.addBook(book));
+  // Charger les livres depuis un fichier local
+  async loadBooksFromFile(): Promise<APIBook[]> {
+    const data = await readFile('../books.json', 'utf-8');
+    const apiBooks: GlobalBookAPI[] = JSON.parse(data);
+
+    apiBooks["results"].forEach((book) => {
+      this.addBook({
+        isbn: book.objectid.toString(),
+        title: book.nom_de_l_oeuvre,
+        author: book.nom_de_l_artiste,
+        date: book.date_de_creation,
+        coordonnees: book.coord,
+        emplacement: book.emplacement,
+        favoris: false,
+      });
+    });
+    console.log(this.getAllBooks());
+    return apiBooks["results"];
   }
 
-  private async loadBooksFromApi() {
-    // Remplacez l'URL par celle de votre base de données open data
-    const apiUrl = 'https://opendata.hauts-de-seine.fr/api/explore/v2.1/catalog/datasets/fr-833718794-oeuvres-d-art/records?limit=20'; // Exemple d'URL
-    const response = await firstValueFrom(
-      this.httpService.get(apiUrl).pipe(
-        map((response) => response.data), // Récupération des données
-        map((apiBooks: APIBook[]) =>
-          apiBooks.map((apiBook) => ({
-            isbn: apiBook.objectid.toString(), // Conversion objectid en string (ISBN)
-            title: apiBook.nom_de_l_oeuvre,
-            author: apiBook.nom_de_l_artiste,
-            date: apiBook.date_de_creation,
-            coordonnees: apiBook.coord,
-            emplacement: apiBook.emplacement,
-            favoris: false,  // Par défaut, 'favoris' est faux
-          }))
-        ),
-        tap((books: Book[]) => books.forEach((book) => this.addBook(book)))
+  // Charger les livres depuis une API externe
+  async readBooksOnline(): Promise<Book[]> {
+    const httpService: HttpService = new HttpService();
+    const response: AxiosResponse<GlobalBookAPI[]> = await httpService
+      .get<GlobalBookAPI[]>(
+        'https://opendata.hauts-de-seine.fr/api/explore/v2.1/catalog/datasets/fr-833718794-oeuvres-d-art/records?limit=20', // Remplacez avec l'URL de l'API
       )
-    );
+      .toPromise();
+    const apiBooks = response.data;
+
+    if (!apiBooks || !apiBooks["results"]) {
+      console.error('Données invalides reçues de l\'API');
+      return [];
+    }
+
+    apiBooks["results"].forEach((book) => {
+      this.addBook({
+        isbn: book.objectid.toString(),
+        title: book.nom_de_l_oeuvre,
+        author: book.nom_de_l_artiste,
+        date: book.date_de_creation,
+        coordonnees: book.coord,
+        emplacement: book.emplacement,
+        favoris: false,
+      });
+    });
+
+    return apiBooks["results"];
   }
 
   addBook(book: Book) {
