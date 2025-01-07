@@ -6,6 +6,7 @@ import {
   HttpCode,
   Param,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { BookService } from './book.service';
@@ -37,6 +38,11 @@ export class BookController {
   @Delete(':isbn')
   deleteBook(@Param('isbn') isbn: string): void { // Paramètre ISBN sous forme de string
     this.bookService.remove(isbn);
+  }
+
+  @Put(':isbn')
+  setFavoris(@Param('isbn') isbn: string, @Body() favoris:boolean) : Book {
+      return this.bookService.setFavoris(isbn, favoris);
   }
 
   @Post('search')
