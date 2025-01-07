@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/emplacement_image"
+        android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:contentDescription="Emplacement image"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginEnd="8dp" />
+
+    <!-- Titre -->
+    <TextView
+        android:id="@+id/r_book_txv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="14sp"
+    android:layout_marginStart="8dp"
+    app:layout_constraintStart_toEndOf="@id/emplacement_image"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:text="Candide" />
+
+    <!-- Auteur du livre -->
+    <TextView
+        android:id="@+id/r_book_txv_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintStart_toStartOf="@id/r_book_txv_title"
+        app:layout_constraintTop_toBottomOf="@id/r_book_txv_title"
+        tools:text="Voltaire" />
+
+    <!-- Date de publication -->
+    <TextView
+        android:id="@+id/r_book_txv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintStart_toStartOf="@id/r_book_txv_author"
+        app:layout_constraintTop_toBottomOf="@id/r_book_txv_author"
+        tools:text="22/10/1678" />
+
+    <!-- ISBN -->
+    <TextView
+        android:id="@+id/r_book_txv_isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/r_book_txv_title"
+        app:layout_constraintTop_toBottomOf="@id/r_book_txv_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="123-54394530" />
+
+    <!-- Bouton favoris -->
+    <ImageView
+        android:id="@+id/txvFavorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="Favoris"
+        android:src="@drawable/ic_star_empty"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

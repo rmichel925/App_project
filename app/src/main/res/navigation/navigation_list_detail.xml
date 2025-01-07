@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_list_detail"
+    app:startDestination="@id/f_salle_musculation_list_rcv_salle_musculations">
+
+    <fragment
+        android:id="@+id/f_salle_musculation_list_rcv_salle_musculations"
+        android:name="com.ismin.android.SalleMusculationListFragment"
+        android:label="Liste des éléments">
+        <action
+            android:id="@+id/action_listFragment_to_detailFragment"
+            app:destination="@id/salle_musculation_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/salle_musculation_detail"
+        android:name="com.ismin.android.SalleMusculationDetailListFragment"
+        android:label="Détails">
+        <argument
+            android:name="itemDetails"
+            app:argType="com.ismin.android.SalleMusculation" />
+    </fragment>
+</navigation>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/bd_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Retour"
+        android:layout_gravity="center_horizontal" />
+
+
+
+    <TextView
+        android:id="@+id/bd_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title" />
+
+    <TextView
+        android:id="@+id/bd_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author" />
+
+    <TextView
+        android:id="@+id/bd_isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ISBN" />
+
+    <TextView
+        android:id="@+id/bd_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date" />
+
+    <TextView
+        android:id="@+id/bd_emplacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emplacement" />
+
+    <TextView
+        android:id="@+id/bd_favoris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favoris" />
+</LinearLayout>
